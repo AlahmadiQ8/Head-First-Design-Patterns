@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace SimUDuck
+namespace StrategyPattern
 {
     public abstract class Duck
     {
-        public IFlyBehavior FlyBehavior { get; set; }
-        public IQuackBehavior QuackBehavior { get; set; }
+        protected IFlyBehavior FlyBehavior { get; set; }
+        protected IQuackBehavior QuackBehavior { get; set; }
 
         public abstract void Display();
 

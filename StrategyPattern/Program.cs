@@ -1,4 +1,4 @@
-﻿namespace SimUDuck
+﻿namespace StrategyPattern
 {
     class Program
     {
