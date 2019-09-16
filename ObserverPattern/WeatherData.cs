@@ -3,45 +3,33 @@ using System.Collections.Generic;
 
 namespace ObserverPattern
 {
-    public class WeatherData : ISubject<WeatherInfo>
+    public class WeatherData : IObservable<WeatherInfo>
     {
-        private readonly WeatherInfo _weatherInfo;
+        private WeatherInfo _weatherInfo;
         private readonly List<IObserver<WeatherInfo>> _observers;
 
         public WeatherData()
         {
             _observers = new List<IObserver<WeatherInfo>>();
-            _weatherInfo = new WeatherInfo();
-        }
-
-        public void RegisterObserver(IObserver<WeatherInfo> o)
-        {
-            _observers.Add(o);
-        }
-
-        public void RemoveObserver(IObserver<WeatherInfo> o)
-        {
-            _observers.Remove(o);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in _observers)
-            {
-                observer.Update(_weatherInfo);
-            }
-        }
-
-        public void MeasurementsChanged()
-        {
-            NotifyObservers();
         }
 
         public void SetMeasurements(float temp, float humidity, float pressure)
         {
-            _weatherInfo.Temp = temp;
-            _weatherInfo.Humidity = humidity;
-            _weatherInfo.Pressure = pressure;
+            _weatherInfo = new WeatherInfo(temp, humidity, pressure);
+            foreach (var observer in _observers)
+            {
+                observer.OnNext(_weatherInfo);
+            }
+        }
+
+        public IDisposable Subscribe(System.IObserver<WeatherInfo> observer)
+        {
+            if (!_observers.Contains(observer))
+            {
+                _observers.Add(observer);
+            }
+
+            return new Unsubscriber<WeatherInfo>(_observers, observer);
         }
     }
 }

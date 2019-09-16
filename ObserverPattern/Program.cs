@@ -2,11 +2,19 @@
 
 namespace ObserverPattern
 {
-    internal static class Program
+    internal class Program
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var weatherData = new WeatherData();
+
+            var currentConditionsDisplay = new CurrentConditionsDisplay(weatherData);
+
+            weatherData.SetMeasurements(80, 65, 30.4f);
+
+            currentConditionsDisplay.Unsubscribe();
+
+            weatherData.SetMeasurements(80, 65, 30.4f);
         }
     }
 }

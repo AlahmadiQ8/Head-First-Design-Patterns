@@ -1,4 +1,5 @@
 namespace ObserverPattern
+
 {
     public interface IDisplayElement
     {
