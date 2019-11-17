@@ -4,19 +4,17 @@ using System.Text;
 
 namespace DecoratorPattern.Condiments
 {
-    class Milk : ICondimentDecorator
+    class Milk : CondimentDecorator
     {
-        private readonly IBeverage _beverage;
-
-        public Milk(IBeverage beverage)
+        public Milk(IBeverage beverage) : base(beverage)
         {
-            _beverage = beverage;
         }
 
-        public string Description => _beverage.Description + ", Milk";
-        public double Cost()
+        public override string Description => Beverage.Description + ", Milk";
+
+        public override double Cost()
         {
-            return _beverage.Cost() + 0.3;
+            return Beverage.Cost() + 0.3;
         }
     }
 }

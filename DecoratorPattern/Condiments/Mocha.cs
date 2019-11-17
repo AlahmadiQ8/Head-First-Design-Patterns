@@ -5,20 +5,17 @@ using System.Text;
 
 namespace DecoratorPattern.Condiments
 {
-    class Mocha : ICondimentDecorator
+    class Mocha : CondimentDecorator
     {
-        private readonly IBeverage _beverage;
-
-        public Mocha(IBeverage beverage)
+        public Mocha(IBeverage beverage) : base(beverage)
         {
-            _beverage = beverage;
         }
 
-        public string Description => _beverage.Description + ", Mocha";
+        public override string Description => Beverage.Description + ", Mocha";
 
-        public double Cost()
+        public override double Cost()
         {
-            return _beverage.Cost() + 0.2;
+            return Beverage.Cost() + 0.2;
         }
     }
 }

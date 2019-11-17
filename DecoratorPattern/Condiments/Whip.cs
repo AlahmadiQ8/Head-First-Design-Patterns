@@ -4,19 +4,17 @@ using System.Text;
 
 namespace DecoratorPattern.Condiments
 {
-    class Whip : ICondimentDecorator
+    class Whip : CondimentDecorator
     {
-        private readonly IBeverage _beverage;
 
-        public Whip(IBeverage beverage)
+        public Whip(IBeverage beverage): base(beverage)
         {
-            _beverage = beverage;
         }
 
-        public string Description => _beverage.Description + ", Whipped Cream";
-        public double Cost()
+        public override string Description => Beverage.Description + ", Whipped Cream";
+        public override double Cost()
         {
-            return _beverage.Cost() + 0.4;
+            return Beverage.Cost() + 0.4;
         }
     }
 }
